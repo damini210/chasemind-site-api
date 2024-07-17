@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+    <script>
+        document.querySelector("#year").textContent = new Date().getFullYear();
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Thank You for Contacting Us!</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{name}},</p>
+            <p>Thank you for reaching out to Chasemind Solution Pvt. Ltd. We have received your message and appreciate
+                you taking the time to get in touch with us.</p>
+            <p>Our team will review your inquiry and get back to you as soon as possible. In the meantime, feel free to
+                browse our website for more information.</p>
+            <p>Best regards,</p>
+            <p>Chasemind Solution Pvt. Ltd.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; <span id="year"></span> Chasemind Solution Pvt. Ltd. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>
