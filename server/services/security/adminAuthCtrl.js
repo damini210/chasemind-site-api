@@ -11,7 +11,6 @@ const _ = require("lodash");
 
 /* Token Check */
 AdminAuthCtrl.TokenCheck = (req, res) => {
-    console.log(res, '1111111111111')
 
     var response = new HttpRespose();
     if (!!req.payload && !!req.payload._id) {

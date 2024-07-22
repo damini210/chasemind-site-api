@@ -61,4 +61,5 @@ module.exports = {
     SomethingWrong: { code: 1013, message: "Oops! something went wrong, please try again later." },
     MissingDeviceTokenParameter: { code: 1015, message: "Missing device token parameters." },
     SubsciptionPlanExist: { code: 1011, message: "SubScription Plan Exist, Deactivate previous plan" },
+    PortfolioSuc: {code: 200, message: "Portfolio created successfully"}
 }

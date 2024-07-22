@@ -142,7 +142,7 @@ module.exports = (app) => {
   
   
   app.use("/v1/adminAuth", cpUpload, require("../web/routes/v1/adminAuth"));
-  app.use("/v1/blog", cpUpload, require("../web/routes/v1/blog"));
+  app.use("/v1/portfolio", cpUpload, require("./routes/v1/portfolio"));
   app.use("/v1/contact", cpUpload, require("../web/routes/v1/contact"));
   app.use("/v1/testimonial", cpUpload, require("../web/routes/v1/testimonial"));
   app.get(
