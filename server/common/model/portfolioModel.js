@@ -39,13 +39,12 @@ class PortfolioModel extends ModelBase {
     if (!data.type) data.type = 1;
     data.status = 1;
     data.createdAt = new Date();
-    self.insert(data, function (err, user) {
+    self.insert(data, function (err, portfolio) {
       if (err) {
         return cb(err);
       }
-      delete user.ops[0].pwd;
 
-      cb(null, user.ops[0]);
+      cb(null, portfolio.ops[0]);
     });
   }
 

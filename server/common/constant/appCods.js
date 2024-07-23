@@ -10,7 +10,6 @@ module.exports = {
     NoBannerFound: { code: 1006, message: "No BannerData found." },
 
     UserUpdateFail: { code: 1010, message: "Failed to update user details. Please try after sometime. " },
-    ForgotPassword: { code: 200, message: "OTP Send to your registerd email Id." },
     PasswordChangeSucess: { code: 200, message: "Password has been updated" },
     bannerDataSuccess: {
         code: 200,
@@ -61,5 +60,6 @@ module.exports = {
     SomethingWrong: { code: 1013, message: "Oops! something went wrong, please try again later." },
     MissingDeviceTokenParameter: { code: 1015, message: "Missing device token parameters." },
     SubsciptionPlanExist: { code: 1011, message: "SubScription Plan Exist, Deactivate previous plan" },
-    PortfolioSuc: {code: 200, message: "Portfolio created successfully"}
+    PortfolioSaveSuc: {code: 200, message: "Portfolio save successfully"},
+    PortfolioUpdateeSuc: {code: 200, message: "Portfolio update successfully"}
 }

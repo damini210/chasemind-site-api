@@ -7,6 +7,7 @@ const ObjectID = require("mongodb").ObjectID;
 
 /* Create Portfolio Data */
 portfolioCtrl.createOrUpdate = (req, res) => {
+  console.log(req.body);
   if (req.body._id) {
     const response = new HttpRespose();
     let query = { _id: ObjectID(req.body._id) };
@@ -16,19 +17,20 @@ portfolioCtrl.createOrUpdate = (req, res) => {
     }
     data.updatedAt = new Date();
     delete data._id;
-    portfolioModel.updateOne(query, { $set: data }, function (err, product) {
+    portfolioModel.updateOne(query, { $set: data }, function (err, portfolio) {
       if (err) {
         AppCode.Fail.error = err.message;
         response.setError(AppCode.Fail);
         response.send(res);
       } else {
-        response.setData(AppCode.Success, product);
+        response.setData(AppCode.PortfolioUpdateeSuc, portfolio);
         response.send(res);
       }
     });
   } else {
     let response = new HttpRespose();
     let data = req.body;
+    delete data._id;
     if (req.files.Image) {
       data.Image = req.files.Image[0].filename;
     }
@@ -37,7 +39,7 @@ portfolioCtrl.createOrUpdate = (req, res) => {
         console.log(err);
         response.setError(AppCode.Fail);
       } else {
-        response.setData(AppCode.PortfolioSuc);
+        response.setData(AppCode.PortfolioSaveSuc, portfolio);
         response.send(res);
       }
     });
@@ -109,19 +111,22 @@ portfolioCtrl.portfolioDetailsByIdForAdmin = (req, res) => {
 };
 
 portfolioCtrl.portfolioActiveDeactive = (req, res) => {
-    const response = new HttpRespose();
-    let query = { _id: ObjectID(req.body._id) };
-    portfolioModel.updateOne(query, { $set: { status: req.body.status } }, function (err, product) {
-        if (err) {
-            //TODO: Log the error here
-            AppCode.Fail.error = err.message;
-            response.setError(AppCode.Fail);
-            response.send(res);
-        } else {
-            response.setData(AppCode.Success, product);
-            response.send(res);
-        }
-    });
+  const response = new HttpRespose();
+  let query = { _id: ObjectID(req.body._id) };
+  portfolioModel.updateOne(
+    query,
+    { $set: { status: req.body.status } },
+    function (err, product) {
+      if (err) {
+        AppCode.Fail.error = err.message;
+        response.setError(AppCode.Fail);
+        response.send(res);
+      } else {
+        response.setData(AppCode.Success, product);
+        response.send(res);
+      }
+    }
+  );
 };
 
 module.exports = portfolioCtrl;

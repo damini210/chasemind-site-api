@@ -9,8 +9,8 @@ const _ = require("lodash");
 //create contact
 
 contactCtrl.create = (req, res) => {
-  var response = new HttpRespose();
-  var data = req.body;
+  let response = new HttpRespose();
+  let data = req.body;
   ContactModel.create(data, (err, contact) => {
     console.log(data);
     if (err) {
