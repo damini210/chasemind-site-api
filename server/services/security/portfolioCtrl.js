@@ -129,4 +129,33 @@ portfolioCtrl.portfolioActiveDeactive = (req, res) => {
   );
 };
 
+/* portfolio List For front layout */
+portfolioCtrl.portfolioFrontList = (req, res) => {
+  const response = new HttpRespose();
+  try {
+      let query = [
+          {
+              $match: { status: 1 }
+          },
+          { $sort: { createdAt: -1 } },
+      ];
+      portfolioModel.advancedAggregate(query, {}, (err, portfolio) => {
+          if (err) {
+              console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", err)
+              throw err;
+          } else if (_.isEmpty(portfolio)) {
+              response.setError(AppCode.NotFound);
+              response.send(res);
+          } else {
+              response.setData(AppCode.Success, portfolio);
+              response.send(res);
+          }
+      });
+  } catch (exception) {
+      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", exception)
+      response.setError(AppCode.InternalServerError);
+      response.send(res);
+  }
+}
+
 module.exports = portfolioCtrl;
