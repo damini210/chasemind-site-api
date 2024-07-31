@@ -56,20 +56,6 @@ contactCtrl.contactDataList = (req, res) => {
   const response = new HttpRespose();
 
   try {
-    let query = [
-      {
-        $project: {
-          _id: 1,
-          name: 1,
-          email: 1,
-          message: 1,
-          subject: 1,
-          createdAt: 1,
-        },
-      },
-    ];
-    console.log(query);
-
     ContactModel.advancedAggregate(query, {}, (err, subUnitData) => {
       if (err) {
         throw err;
