@@ -1,7 +1,0 @@
-{
-    "ENV": {
-        "PRODUCTION": "production",
-        "DEVELOPMENT": "development",
-        "STAGING": "staging"
-    }
-}
