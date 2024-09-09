@@ -5,7 +5,10 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 // Route for getting all portfolio entries
-router.get("/portfolios", portfolioController.listPortfolios);
+router.get("/portfolios",  authMiddleware, portfolioController.listPortfolios);
+
+// Route for getting all active portfolio entries
+router.get("/activePortfolios", portfolioController.listActivePortfolios);
 
 // Route for getting a single portfolio entry by ID
 router.get(

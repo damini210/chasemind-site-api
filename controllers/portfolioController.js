@@ -12,14 +12,26 @@ exports.listPortfolios = async (req, res) => {
   }
 };
 
+exports.listActivePortfolios = async (req, res) => {
+  try {
+    const portfolios = await Portfolio.find({ status: 1 });
+    responseHandler.successResponse(res, "Success", portfolios);
+  } catch (err) {
+    return responseHandler.errorResponse(res, "Fail", error.message);
+  }
+};
+
 exports.createPortfolio = async (req, res) => {
   try {
-    const { title, shortDesc, type } = req.body;
+    const { title, shortDesc, longDesc, projectInfo, slug, type } = req.body;
     const Image = req.files.Image ? req.files.Image[0].filename : null;
     const newPortfolio = new Portfolio({
       title,
       shortDesc,
+      longDesc,
+      projectInfo,
       Image,
+      slug,
       type,
     });
     const portfolio = await newPortfolio.save();
@@ -45,8 +57,6 @@ exports.getPortfolioById = async (req, res) => {
 };
 
 exports.updatePortfolio = async (req, res) => {
-  console.log('111111111')
-
   try {
     const portfolioId = req.params.id;
     const portfolio = await Portfolio.findById(portfolioId);

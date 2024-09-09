@@ -5,6 +5,8 @@ const portfolioSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     shortDesc: { type: String, required: true },
+    longDesc: { type: String, required: true },
+    projectInfo: { type: String, required: true},
     status: {
       type: Number,
       enum: StatusEnumValues,
@@ -18,6 +20,8 @@ const portfolioSchema = new mongoose.Schema(
       default: 1,
     },
     Image: { type: String, default: null },
+    // sliderImages: { type: String, default: null },
+    slug: { type: String, required: true }
   },
   { timestamps: true }
 );
