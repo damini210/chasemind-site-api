@@ -7,7 +7,7 @@ exports.listPortfolios = async (req, res) => {
   try {
     const portfolios = await Portfolio.find({});
     responseHandler.successResponse(res, "Success", portfolios);
-  } catch (err) {
+  } catch (error) {
     return responseHandler.errorResponse(res, "Fail", error.message);
   }
 };
@@ -16,7 +16,7 @@ exports.listActivePortfolios = async (req, res) => {
   try {
     const portfolios = await Portfolio.find({ status: 1 });
     responseHandler.successResponse(res, "Success", portfolios);
-  } catch (err) {
+  } catch (error) {
     return responseHandler.errorResponse(res, "Fail", error.message);
   }
 };
@@ -25,6 +25,9 @@ exports.createPortfolio = async (req, res) => {
   try {
     const { title, shortDesc, longDesc, projectInfo, slug, type } = req.body;
     const Image = req.files.Image ? req.files.Image[0].filename : null;
+    const projectImages = req.files.projectImages.map((file) => file.filename); // Save file names to respond back
+
+    console.log(projectImages);
     const newPortfolio = new Portfolio({
       title,
       shortDesc,
@@ -33,6 +36,7 @@ exports.createPortfolio = async (req, res) => {
       Image,
       slug,
       type,
+      projectImages,
     });
     const portfolio = await newPortfolio.save();
     responseHandler.successResponse(res, "PortfolioSaveSuccess", portfolio);
@@ -47,6 +51,20 @@ exports.getPortfolioById = async (req, res) => {
   try {
     const { id } = req.params;
     const portfolio = await Portfolio.findById(id);
+    if (!portfolio) {
+      return responseHandler.errorResponse(res, "Fail", error.message);
+    }
+    responseHandler.successResponse(res, "Success", portfolio);
+  } catch (error) {
+    return responseHandler.errorResponse(res, "Fail", error.message);
+  }
+};
+
+// Get a single portfolio entry by Slug
+exports.getPortfolioBySlug = async (req, res) => {
+  try {
+    const slug = req.params;
+    const portfolio = await Portfolio.findOne(slug);
     if (!portfolio) {
       return responseHandler.errorResponse(res, "Fail", error.message);
     }
@@ -79,6 +97,27 @@ exports.updatePortfolio = async (req, res) => {
       }
       // Update with new image URL
       console.log(req.body);
+    }
+
+    // Handle image updates
+    if (req.files && req.files.projectImages) {
+      // Delete old images
+      if (portfolio.projectImages && Array.isArray(portfolio.projectImages)) {
+        for (const oldImage of portfolio.projectImages) {
+          const oldImagePath = path.join(
+            __dirname,
+            "../uploads/project_images",
+            oldImage
+          );
+          if (fs.existsSync(oldImagePath)) {
+            fs.unlinkSync(oldImagePath);
+          }
+        }
+      }
+      // Update with new images
+      req.body.projectImages = req.files.projectImages.map(
+        (file) => file.filename
+      );
     }
     const updatedPortfolio = await Portfolio.findByIdAndUpdate(
       portfolioId,
@@ -119,7 +158,7 @@ exports.updateStatus = async (req, res) => {
       "PortfolioUpdateSuccess",
       updatedPortfolio
     );
-  } catch (err) {
-    return responseHandler.errorResponse(res, "Fail", err.message);
+  } catch (error) {
+    return responseHandler.errorResponse(res, "Fail", error.message);
   }
 };

@@ -10,11 +10,17 @@ router.get("/portfolios",  authMiddleware, portfolioController.listPortfolios);
 // Route for getting all active portfolio entries
 router.get("/activePortfolios", portfolioController.listActivePortfolios);
 
-// Route for getting a single portfolio entry by ID
+// Route for getting a single portfolio entry by ID for admin
 router.get(
   "/portfolio/:id",
   authMiddleware,
   portfolioController.getPortfolioById
+);
+
+// Route for getting a single portfolio entry by ID for front
+router.get(
+  "/portfolioBySlug/:slug",
+  portfolioController.getPortfolioBySlug
 );
 
 // Route for creating a new portfolio with an image

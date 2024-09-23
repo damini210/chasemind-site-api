@@ -20,6 +20,7 @@ const portfolioSchema = new mongoose.Schema(
       default: 1,
     },
     Image: { type: String, default: null },
+    projectImages: { type: Array, default: null },
     // sliderImages: { type: String, default: null },
     slug: { type: String, required: true }
   },

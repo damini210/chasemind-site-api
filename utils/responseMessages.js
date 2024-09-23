@@ -9,7 +9,7 @@ module.exports = {
     code: 200,
     message: "Your email is not verified, please verify your email",
   },
-  EmailAlreadyExist: {code: 11000, message: 'Email already exists'},
+  EmailAlreadyExist: { code: 11000, message: "Email already exists" },
   NoBannerFound: { code: 1006, message: "No BannerData found." },
   UserUpdateFail: {
     code: 1010,
@@ -65,6 +65,14 @@ module.exports = {
   PortfolioUpdateSuccess: {
     code: 200,
     message: "Portfolio updated successfully",
+  },
+  testimonialSaveSuccess: {
+    code: 200,
+    message: "Testimonial saved successfully",
+  },
+  TestimonialUpdateSuccess: {
+    code: 200,
+    message: "Testimonial updated successfully",
   },
   Unauthorized: { code: 401, message: "Unauthorized access." },
 };
